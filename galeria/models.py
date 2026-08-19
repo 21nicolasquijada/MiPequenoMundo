@@ -1,4 +1,16 @@
 from django.db import models
+from core.models import SingletonModel
+
+
+class PaginaGaleria(SingletonModel):
+    imagen_hero = models.ImageField(upload_to='galeria/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Portada de galería'
+        verbose_name_plural = 'Portada de galería'
+
+    def __str__(self):
+        return 'Portada de la página de galería'
 
 
 class FotoGaleria(models.Model):

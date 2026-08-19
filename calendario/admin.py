@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import EventoCalendario
+from core.admin import SingletonAdmin
+from .models import EventoCalendario, PaginaCalendario
+
+
+@admin.register(PaginaCalendario)
+class PaginaCalendarioAdmin(SingletonAdmin):
+    pass
 
 
 @admin.register(EventoCalendario)

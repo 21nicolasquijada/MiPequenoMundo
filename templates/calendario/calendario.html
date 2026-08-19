@@ -3,12 +3,23 @@
 {% block title %}Calendario · {{ config_sitio.nombre_jardin }}{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div class="container">
-        <div class="page-header-panel">
-            <span class="page-header-icon" aria-hidden="true">📅</span>
-            <h1>Calendario de actividades</h1>
-            <p>Todas las fechas importantes del año, mes a mes.</p>
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>📅 Calendario de actividades</h1>
+                <p class="hero-subtitle">Todas las fechas importantes del año, mes a mes.</p>
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if portada.imagen_hero %}
+                <img src="{{ portada.imagen_hero.url }}" alt="Calendario de actividades">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🖼️</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>

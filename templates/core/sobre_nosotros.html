@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Sobre Nosotros · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>🌎 Sobre Nosotros</h1>
+                <p class="hero-subtitle">Conoce nuestra historia, misión y los valores que guían a {{ config_sitio.nombre_jardin }}.</p>
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if sobre_nosotros.imagen_hero %}
+                <img src="{{ sobre_nosotros.imagen_hero.url }}" alt="Sobre Nosotros">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🖼️</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% if sobre_nosotros.bienvenida %}
+<section class="container section">
+    <div class="content-card rich-text">
+        <h2><span aria-hidden="true">💛</span> Bienvenidos a {{ config_sitio.nombre_jardin }}</h2>
+        {{ sobre_nosotros.bienvenida|safe }}
+    </div>
+</section>
+{% endif %}
+
+{% if sobre_nosotros.mision or sobre_nosotros.vision %}
+<section class="container section">
+    <div class="mision-vision-row">
+        {% if sobre_nosotros.mision %}
+        <div class="content-card rich-text">
+            <h2><span aria-hidden="true">🎯</span> Misión</h2>
+            {{ sobre_nosotros.mision|safe }}
+        </div>
+        {% endif %}
+        {% if sobre_nosotros.vision %}
+        <div class="content-card rich-text">
+            <h2><span aria-hidden="true">🔭</span> Visión</h2>
+            {{ sobre_nosotros.vision|safe }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+{% if sobre_nosotros.sellos_educativos %}
+<section class="container section">
+    <div class="content-card rich-text sellos-educativos">
+        <h2><span aria-hidden="true">✨</span> Sellos educativos</h2>
+        {{ sobre_nosotros.sellos_educativos|safe }}
+    </div>
+</section>
+{% endif %}
+
+{% if sobre_nosotros.valores_intro or sobre_nosotros.valores %}
+<section class="container section">
+    <div class="content-card rich-text">
+        <h2><span aria-hidden="true">🤝</span> Valores y competencias</h2>
+        {% if sobre_nosotros.valores_intro %}{{ sobre_nosotros.valores_intro|safe }}{% endif %}
+        {% if sobre_nosotros.valores %}
+        <div class="valores-grid">
+            {% for valor in sobre_nosotros.valores %}
+            <span class="valor-tag">{{ valor }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import FotoGaleria
+from core.admin import SingletonAdmin
+from .models import FotoGaleria, PaginaGaleria
+
+
+@admin.register(PaginaGaleria)
+class PaginaGaleriaAdmin(SingletonAdmin):
+    pass
 
 
 @admin.register(FotoGaleria)

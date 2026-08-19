@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from actividades.models import SemanaActividades
 from galeria.models import FotoGaleria
-from .models import PaginaInicio, Reglamento
+from .models import PaginaInicio, PaginaSobreNosotros, Reglamento
 
 
 def inicio(request):
@@ -18,3 +18,8 @@ def inicio(request):
 def reglamento(request):
     context = {'reglamento': Reglamento.load()}
     return render(request, 'core/reglamento.html', context)
+
+
+def sobre_nosotros(request):
+    context = {'sobre_nosotros': PaginaSobreNosotros.load()}
+    return render(request, 'core/sobre_nosotros.html', context)

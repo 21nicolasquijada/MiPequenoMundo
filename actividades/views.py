@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from .models import SemanaActividades
+from .models import PaginaActividades, SemanaActividades
 
 
 def actividades(request):
-    semanas = SemanaActividades.objects.filter(publicada=True)
-    return render(request, 'actividades/actividades.html', {'semanas': semanas})
+    context = {
+        'semanas': SemanaActividades.objects.filter(publicada=True),
+        'portada': PaginaActividades.load(),
+    }
+    return render(request, 'actividades/actividades.html', context)

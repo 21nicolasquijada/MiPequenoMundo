@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from .models import FotoGaleria
+from .models import FotoGaleria, PaginaGaleria
 
 
 def galeria(request):
-    return render(request, 'galeria/galeria.html', {'fotos': FotoGaleria.objects.all()})
+    context = {
+        'fotos': FotoGaleria.objects.all(),
+        'portada': PaginaGaleria.load(),
+    }
+    return render(request, 'galeria/galeria.html', context)

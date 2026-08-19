@@ -7,12 +7,20 @@
     <title>{% block title %}{{ config_sitio.nombre_jardin }}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     <div class="page-bg" aria-hidden="true"></div>
+
+    <div class="floating-mascots" aria-hidden="true">
+        <img src="{% static 'img/mascota-sol.svg' %}" class="mascot mascot-sol" alt="">
+        <img src="{% static 'img/mascota-nube.svg' %}" class="mascot mascot-nube" alt="">
+        <img src="{% static 'img/mascota-estrella.svg' %}" class="mascot mascot-estrella" alt="">
+        <img src="{% static 'img/mascota-sol.svg' %}" class="mascot mascot-sol-2" alt="">
+        <img src="{% static 'img/mascota-estrella.svg' %}" class="mascot mascot-estrella-2" alt="">
+    </div>
 
     {% if config_sitio.telefono or config_sitio.email or config_sitio.facebook_url or config_sitio.instagram_url %}
     <div class="topbar">
@@ -44,6 +52,7 @@
             </button>
             <nav class="site-nav" id="siteNav">
                 <a href="{% url 'core:inicio' %}">Inicio</a>
+                <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
                 <a href="{% url 'actividades:actividades' %}">Actividades diarias</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
@@ -86,6 +95,7 @@
             </div>
             <div class="footer-links">
                 <a href="{% url 'core:inicio' %}">Inicio</a>
+                <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
                 <a href="{% url 'actividades:actividades' %}">Actividades diarias</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
@@ -105,6 +115,8 @@
         <p class="footer-copy">&copy; {% now "Y" %} {{ config_sitio.nombre_jardin }}</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>

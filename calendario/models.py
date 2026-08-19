@@ -1,6 +1,18 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from core.models import SingletonModel
+
+
+class PaginaCalendario(SingletonModel):
+    imagen_hero = models.ImageField(upload_to='calendario/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Portada de calendario'
+        verbose_name_plural = 'Portada de calendario'
+
+    def __str__(self):
+        return 'Portada de la página de calendario'
 
 
 class EventoCalendario(models.Model):

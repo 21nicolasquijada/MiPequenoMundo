@@ -18,7 +18,10 @@
             {% if inicio.imagen_hero %}
                 <img src="{{ inicio.imagen_hero.url }}" alt="{{ inicio.titulo_hero }}">
             {% else %}
-                <div class="hero-media-placeholder" aria-hidden="true">🧸</div>
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🧸</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
             {% endif %}
             <div class="hero-badge">
                 <span class="hero-badge-icon" aria-hidden="true">🎨</span>
@@ -93,6 +96,10 @@
                 <p>NO SE POSTULA POR SAE - MINEDUC.<br>El trámite se realiza directamente en nuestro establecimiento.</p>
             </div>
         </div>
+
+        <div class="admision-cta">
+            <a href="https://docs.google.com/forms/d/1ZH_q1k3PRzilUyW02A18TH9S2QExyy93-nnbI5Czmxs/viewform?pli=1&pli=1&edit_requested=true" class="btn btn-lg" target="_blank" rel="noopener">Formulario de inscripción alumnos nuevos</a>
+        </div>
     </div>
 </section>
 
@@ -115,7 +122,7 @@
             <div class="card-body">
                 <span class="card-date">{{ ultima_semana.fecha_inicio|date:"d/m" }} - {{ ultima_semana.fecha_fin|date:"d/m" }}</span>
                 <h3>{{ dia.nombre }}</h3>
-                <p class="card-snippet">{{ dia.descripcion|striptags|truncatewords:14 }}</p>
+                <p class="card-snippet">{{ dia.descripcion|striptags|truncatewords:14|safe }}</p>
             </div>
         </article>
         {% endfor %}

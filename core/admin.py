@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Configuracion, PaginaInicio, Reglamento
+from .models import Configuracion, PaginaInicio, PaginaSobreNosotros, Reglamento
 
 
 class SingletonAdmin(admin.ModelAdmin):
@@ -30,3 +30,14 @@ class PaginaInicioAdmin(SingletonAdmin):
 @admin.register(Reglamento)
 class ReglamentoAdmin(SingletonAdmin):
     readonly_fields = ['actualizado']
+
+
+@admin.register(PaginaSobreNosotros)
+class PaginaSobreNosotrosAdmin(SingletonAdmin):
+    fieldsets = (
+        (None, {'fields': ('imagen_hero',)}),
+        ('Bienvenida', {'fields': ('bienvenida',)}),
+        ('Misión y visión', {'fields': ('mision', 'vision')}),
+        ('Sellos educativos', {'fields': ('sellos_educativos',)}),
+        ('Valores y competencias', {'fields': ('valores_intro', 'lista_valores')}),
+    )

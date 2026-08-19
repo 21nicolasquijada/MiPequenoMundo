@@ -3,12 +3,23 @@
 {% block title %}Actividades diarias · {{ config_sitio.nombre_jardin }}{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div class="container">
-        <div class="page-header-panel">
-            <span class="page-header-icon" aria-hidden="true">🧩</span>
-            <h1>Actividades diarias</h1>
-            <p>Así aprendemos jugando cada día.</p>
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>🧩 Actividades diarias</h1>
+                <p class="hero-subtitle">Así aprendemos jugando cada día.</p>
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if portada.imagen_hero %}
+                <img src="{{ portada.imagen_hero.url }}" alt="Actividades diarias">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🖼️</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -18,12 +29,15 @@
     {% for semana in semanas %}
     <div class="week-block">
         <h2 class="week-title">Actividades {{ semana.fecha_inicio|date:"d" }} al {{ semana.fecha_fin|date:"d" }} de {{ semana.fecha_fin|date:"F" }}</h2>
+        {% if semana.descripcion_general %}
+        <div class="rich-text week-summary">{{ semana.descripcion_general|safe }}</div>
+        {% endif %}
         <div class="day-list">
             {% for dia in semana.dias %}
             <article class="day-card">
                 <h3>{{ dia.nombre }}</h3>
                 <div class="rich-text">{{ dia.descripcion|safe }}</div>
-                {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}">{% endif %}
+                {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}" loading="lazy" decoding="async">{% endif %}
             </article>
             {% endfor %}
         </div>

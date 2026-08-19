@@ -3,6 +3,18 @@ from datetime import timedelta
 from django.core.exceptions import ValidationError
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from core.models import SingletonModel
+
+
+class PaginaActividades(SingletonModel):
+    imagen_hero = models.ImageField(upload_to='actividades/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Portada de actividades'
+        verbose_name_plural = 'Portada de actividades'
+
+    def __str__(self):
+        return 'Portada de la página de actividades'
 
 
 class SemanaActividades(models.Model):
@@ -11,6 +23,11 @@ class SemanaActividades(models.Model):
         help_text='Selecciona el día lunes de la semana que corresponde.',
     )
     publicada = models.BooleanField(default=True, help_text='Desmarca para ocultarla del sitio sin borrarla')
+
+    descripcion_general = RichTextUploadingField(
+        'Descripción general de la semana', blank=True,
+        help_text='Resumen o presentación general de las actividades de la semana (opcional).',
+    )
 
     lunes_descripcion = RichTextUploadingField('Lunes', blank=True)
     lunes_imagen = models.ImageField('Imagen del lunes', upload_to='actividades/', blank=True, null=True)

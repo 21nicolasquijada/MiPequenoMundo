@@ -3,13 +3,26 @@
 {% block title %}Reglamento interno · {{ config_sitio.nombre_jardin }}{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div class="container">
-        <div class="page-header-panel">
-            <span class="page-header-icon" aria-hidden="true">📋</span>
-            <h1>Reglamento interno</h1>
-            {% if reglamento.archivo_pdf %}
-                <a class="btn" href="{{ reglamento.archivo_pdf.url }}" target="_blank" rel="noopener">Descargar en PDF</a>
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>📋 Reglamento interno</h1>
+                {% if reglamento.archivo_pdf %}
+                    <div class="hero-actions">
+                        <a class="btn" href="{{ reglamento.archivo_pdf.url }}" target="_blank" rel="noopener">Descargar en PDF</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if reglamento.imagen_hero %}
+                <img src="{{ reglamento.imagen_hero.url }}" alt="Reglamento interno">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🖼️</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
             {% endif %}
         </div>
     </div>
