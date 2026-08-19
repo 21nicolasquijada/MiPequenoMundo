@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Reglamento interno · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-panel">
+            <span class="page-header-icon" aria-hidden="true">📋</span>
+            <h1>Reglamento interno</h1>
+            {% if reglamento.archivo_pdf %}
+                <a class="btn" href="{{ reglamento.archivo_pdf.url }}" target="_blank" rel="noopener">Descargar en PDF</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="content-card rich-text">
+        {{ reglamento.contenido|safe }}
+    </div>
+</section>
+{% endblock %}

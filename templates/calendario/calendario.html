@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendario · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-panel">
+            <span class="page-header-icon" aria-hidden="true">📅</span>
+            <h1>Calendario de actividades</h1>
+            <p>Todas las fechas importantes del año, mes a mes.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    {% if meses %}
+    {% for mes in meses %}
+    <div class="week-block">
+        <h2 class="week-title">{{ mes.fecha_referencia|date:"F Y"|capfirst }}</h2>
+        <div class="day-list">
+            {% for evento in mes.eventos %}
+            <article class="day-card">
+                <span class="card-date">
+                    {% if evento.fecha_fin and evento.fecha_fin != evento.fecha_inicio %}
+                        {{ evento.fecha_inicio|date:"d" }} al {{ evento.fecha_fin|date:"d \d\e F" }}
+                    {% else %}
+                        {{ evento.fecha_inicio|date:"d \d\e F" }}
+                    {% endif %}
+                </span>
+                <h3>{{ evento.titulo }}</h3>
+                {% if evento.descripcion %}<div class="rich-text">{{ evento.descripcion|safe }}</div>{% endif %}
+                {% if evento.imagen %}<img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">{% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="empty-state">Todavía no hay eventos publicados en el calendario.</p>
+    {% endif %}
+</section>
+{% endblock %}

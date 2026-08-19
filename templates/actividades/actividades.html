@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Actividades diarias · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-panel">
+            <span class="page-header-icon" aria-hidden="true">🧩</span>
+            <h1>Actividades diarias</h1>
+            <p>Así aprendemos jugando cada día.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    {% if semanas %}
+    {% for semana in semanas %}
+    <div class="week-block">
+        <h2 class="week-title">Actividades {{ semana.fecha_inicio|date:"d" }} al {{ semana.fecha_fin|date:"d" }} de {{ semana.fecha_fin|date:"F" }}</h2>
+        <div class="day-list">
+            {% for dia in semana.dias %}
+            <article class="day-card">
+                <h3>{{ dia.nombre }}</h3>
+                <div class="rich-text">{{ dia.descripcion|safe }}</div>
+                {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}">{% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="empty-state">Todavía no hay actividades publicadas.</p>
+    {% endif %}
+</section>
+{% endblock %}

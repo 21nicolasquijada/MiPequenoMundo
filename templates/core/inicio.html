@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>{{ inicio.titulo_hero }}</h1>
+                {% if inicio.subtitulo_hero %}<p class="hero-subtitle">{{ inicio.subtitulo_hero }}</p>{% endif %}
+                <div class="hero-actions">
+                    <a href="{% url 'actividades:actividades' %}" class="btn">Ver actividades</a>
+                    <a href="{% url 'galeria:galeria' %}" class="btn btn-outline">Ver galería</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if inicio.imagen_hero %}
+                <img src="{{ inicio.imagen_hero.url }}" alt="{{ inicio.titulo_hero }}">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">🧸</div>
+            {% endif %}
+            <div class="hero-badge">
+                <span class="hero-badge-icon" aria-hidden="true">🎨</span>
+                <span>Aprender jugando</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-card">
+        <div class="feature-row">
+            <div class="feature-item">
+                <span class="feature-icon feature-icon-blue" aria-hidden="true">🛡️</span>
+                <div>
+                    <h3>Ambiente seguro</h3>
+                    <p>Espacios pensados y cuidados en todo momento.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon feature-icon-punch" aria-hidden="true">💛</span>
+                <div>
+                    <h3>Educadoras cariñosas</h3>
+                    <p>Un equipo cercano que acompaña con paciencia y afecto.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon feature-icon-purple" aria-hidden="true">🧩</span>
+                <div>
+                    <h3>Aprender jugando</h3>
+                    <p>Juego, arte y psicomotricidad cada día.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon feature-icon-amber" aria-hidden="true">🍎</span>
+                <div>
+                    <h3>Convivir en armonía</h3>
+                    <p>Respeto, amistad y buena convivencia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-card">
+        <h2><span aria-hidden="true">🎓</span> Niveles y Requisitos de Edad</h2>
+        <div class="level-row">
+            <div class="level-item">
+                <span class="level-icon" aria-hidden="true">🎨</span>
+                <div>
+                    <h3>Pre Kínder</h3>
+                    <p>4 años cumplidos al 31 de marzo de 2027</p>
+                </div>
+            </div>
+            <div class="level-item">
+                <span class="level-icon" aria-hidden="true">✏️</span>
+                <div>
+                    <h3>Kínder</h3>
+                    <p>5 años cumplidos al 31 de marzo de 2027</p>
+                </div>
+            </div>
+        </div>
+
+        <h2><span aria-hidden="true">📝</span> Proceso de Admisión</h2>
+        <p><strong>Modalidad:</strong> Matrícula directa mediante Formulario de Inscripción y posterior Entrevista Presencial.</p>
+
+        <div class="callout callout-warning">
+            <span class="callout-icon" aria-hidden="true">⚠️</span>
+            <div>
+                <strong>IMPORTANTE</strong>
+                <p>NO SE POSTULA POR SAE - MINEDUC.<br>El trámite se realiza directamente en nuestro establecimiento.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if inicio.texto_bienvenida %}
+<section class="container section">
+    <div class="section-card rich-text">{{ inicio.texto_bienvenida|safe }}</div>
+</section>
+{% endif %}
+
+{% if dias_recientes %}
+<section class="container section">
+    <div class="section-heading">
+        <h2>Últimas actividades</h2>
+        <a class="section-link" href="{% url 'actividades:actividades' %}">Ver todas →</a>
+    </div>
+    <div class="preview-row">
+        {% for dia in dias_recientes %}
+        <article class="card">
+            {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}">{% else %}<div class="card-img-placeholder" aria-hidden="true">📷</div>{% endif %}
+            <div class="card-body">
+                <span class="card-date">{{ ultima_semana.fecha_inicio|date:"d/m" }} - {{ ultima_semana.fecha_fin|date:"d/m" }}</span>
+                <h3>{{ dia.nombre }}</h3>
+                <p class="card-snippet">{{ dia.descripcion|striptags|truncatewords:14 }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if fotos_destacadas %}
+<section class="container section">
+    <div class="section-heading">
+        <h2>Galería</h2>
+        <a class="section-link" href="{% url 'galeria:galeria' %}">Ver galería completa →</a>
+    </div>
+    <div class="preview-row">
+        {% for foto in fotos_destacadas %}
+        <div class="gallery-thumb"><img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}"></div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

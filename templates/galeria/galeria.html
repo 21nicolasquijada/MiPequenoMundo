@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Galería · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-panel">
+            <span class="page-header-icon" aria-hidden="true">📸</span>
+            <h1>Galería de fotos</h1>
+            <p>Momentos que compartimos cada día en {{ config_sitio.nombre_jardin }}.</p>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    {% if fotos %}
+    <div class="gallery-grid">
+        {% for foto in fotos %}
+        <figure class="gallery-item">
+            <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}">
+            {% if foto.descripcion %}<figcaption>{{ foto.descripcion }}</figcaption>{% endif %}
+        </figure>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Todavía no hay fotos publicadas.</p>
+    {% endif %}
+</section>
+{% endblock %}
