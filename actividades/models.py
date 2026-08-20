@@ -60,15 +60,18 @@ class SemanaActividades(models.Model):
     @property
     def dias(self):
         campos = [
-            ('Lunes', self.lunes_descripcion, self.lunes_imagen),
-            ('Martes', self.martes_descripcion, self.martes_imagen),
-            ('Miércoles', self.miercoles_descripcion, self.miercoles_imagen),
-            ('Jueves', self.jueves_descripcion, self.jueves_imagen),
-            ('Viernes', self.viernes_descripcion, self.viernes_imagen),
+            ('Lunes', self.lunes_descripcion, self.lunes_imagen, 0),
+            ('Martes', self.martes_descripcion, self.martes_imagen, 1),
+            ('Miércoles', self.miercoles_descripcion, self.miercoles_imagen, 2),
+            ('Jueves', self.jueves_descripcion, self.jueves_imagen, 3),
+            ('Viernes', self.viernes_descripcion, self.viernes_imagen, 4),
         ]
         return [
-            {'nombre': nombre, 'descripcion': descripcion, 'imagen': imagen}
-            for nombre, descripcion, imagen in campos if descripcion
+            {
+                'nombre': nombre, 'descripcion': descripcion, 'imagen': imagen,
+                'fecha': self.fecha_inicio + timedelta(days=offset),
+            }
+            for nombre, descripcion, imagen, offset in campos if descripcion
         ]
 
     def __str__(self):

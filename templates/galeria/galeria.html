@@ -12,15 +12,17 @@
                 <p class="hero-subtitle">Momentos que compartimos cada día en {{ config_sitio.nombre_jardin }}.</p>
             </div>
         </div>
-        <div class="hero-media">
-            {% if portada.imagen_hero %}
-                <img src="{{ portada.imagen_hero.url }}" alt="Galería de fotos">
-            {% else %}
-                <div class="hero-media-placeholder" aria-hidden="true">
-                    <span>🖼️</span>
-                    <span class="placeholder-label">Imagen próximamente</span>
-                </div>
-            {% endif %}
+        <div class="hero-collage">
+            <div class="collage-item collage-item-1"><img src="{% static 'img/galeria-hero/collage-1.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="collage-item collage-item-2"><img src="{% static 'img/galeria-hero/collage-2.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="collage-item collage-item-3"><img src="{% static 'img/galeria-hero/collage-3.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="collage-item collage-item-4"><img src="{% static 'img/galeria-hero/collage-4.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="collage-item collage-item-5"><img src="{% static 'img/galeria-hero/collage-5.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="collage-item collage-item-6"><img src="{% static 'img/galeria-hero/collage-6.jpg' %}" alt="Niños y niñas de Mi Pequeño Mundo participando en una actividad"></div>
+            <div class="hero-badge">
+                <span class="hero-badge-icon" aria-hidden="true">📸</span>
+                <span>Momentos felices</span>
+            </div>
         </div>
     </div>
 </section>
@@ -37,7 +39,12 @@
                     aria-label="Ver foto{% if foto.titulo %} {{ foto.titulo }}{% endif %} en grande">
                 <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}" loading="lazy" decoding="async">
             </button>
-            {% if foto.descripcion %}<figcaption>{{ foto.descripcion }}</figcaption>{% endif %}
+            {% if foto.titulo or foto.descripcion %}
+            <figcaption>
+                {% if foto.titulo %}<h3>{{ foto.titulo }}</h3>{% endif %}
+                {% if foto.descripcion %}<p>{{ foto.descripcion }}</p>{% endif %}
+            </figcaption>
+            {% endif %}
         </figure>
         {% endfor %}
     </div>
@@ -45,21 +52,4 @@
     <p class="empty-state">Todavía no hay fotos publicadas.</p>
     {% endif %}
 </section>
-
-<div class="lightbox" id="galeriaLightbox">
-    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightboxTitulo">
-        <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
-        <div class="lightbox-media">
-            <img id="lightboxImg" src="" alt="">
-        </div>
-        <div class="lightbox-body">
-            <h3 id="lightboxTitulo"></h3>
-            <p id="lightboxDescripcion"></p>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/galeria.js' %}"></script>
 {% endblock %}

@@ -54,7 +54,7 @@
                 <a href="{% url 'core:inicio' %}">Inicio</a>
                 <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
-                <a href="{% url 'actividades:actividades' %}">Actividades diarias</a>
+                <a href="{% url 'actividades:actividades' %}">Actividades</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
                 <a href="{% url 'core:reglamento' %}">Reglamento</a>
                 {% if config_sitio.whatsapp_url %}
@@ -97,7 +97,7 @@
                 <a href="{% url 'core:inicio' %}">Inicio</a>
                 <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
-                <a href="{% url 'actividades:actividades' %}">Actividades diarias</a>
+                <a href="{% url 'actividades:actividades' %}">Actividades</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
                 <a href="{% url 'core:reglamento' %}">Reglamento</a>
             </div>
@@ -115,9 +115,23 @@
         <p class="footer-copy">&copy; {% now "Y" %} {{ config_sitio.nombre_jardin }}</p>
     </footer>
 
+    <div class="lightbox" id="galeriaLightbox">
+        <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightboxTitulo">
+            <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+            <div class="lightbox-media">
+                <img id="lightboxImg" src="" alt="">
+            </div>
+            <div class="lightbox-body">
+                <h3 id="lightboxTitulo"></h3>
+                <p id="lightboxDescripcion"></p>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/galeria.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

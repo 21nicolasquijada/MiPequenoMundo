@@ -112,7 +112,7 @@
 {% if dias_recientes %}
 <section class="container section">
     <div class="section-heading">
-        <h2>Últimas actividades</h2>
+        <h2>Actividades</h2>
         <a class="section-link" href="{% url 'actividades:actividades' %}">Ver todas →</a>
     </div>
     <div class="preview-row">
@@ -120,7 +120,7 @@
         <article class="card">
             {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}">{% else %}<div class="card-img-placeholder" aria-hidden="true">📷</div>{% endif %}
             <div class="card-body">
-                <span class="card-date">{{ ultima_semana.fecha_inicio|date:"d/m" }} - {{ ultima_semana.fecha_fin|date:"d/m" }}</span>
+                <span class="card-date">{{ dia.fecha|date:"d/m/Y" }}</span>
                 <h3>{{ dia.nombre }}</h3>
                 <p class="card-snippet">{{ dia.descripcion|striptags|truncatewords:14|safe }}</p>
             </div>
@@ -138,7 +138,15 @@
     </div>
     <div class="preview-row">
         {% for foto in fotos_destacadas %}
-        <div class="gallery-thumb"><img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}"></div>
+        <div class="gallery-thumb">
+            <button type="button" class="gallery-item-btn" data-lightbox-trigger
+                    data-img="{{ foto.imagen.url }}"
+                    data-titulo="{{ foto.titulo|default:'' }}"
+                    data-descripcion="{{ foto.descripcion|default:'' }}"
+                    aria-label="Ver foto{% if foto.titulo %} {{ foto.titulo }}{% endif %} en grande">
+                <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}" loading="lazy" decoding="async">
+            </button>
+        </div>
         {% endfor %}
     </div>
 </section>

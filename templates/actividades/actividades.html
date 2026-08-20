@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Actividades diarias · {{ config_sitio.nombre_jardin }}{% endblock %}
+{% block title %}Actividades · {{ config_sitio.nombre_jardin }}{% endblock %}
 
 {% block content %}
 <section class="hero">
     <div class="container hero-inner">
         <div class="hero-text">
             <div class="hero-text-panel">
-                <h1>🧩 Actividades diarias</h1>
+                <h1>🧩 Actividades</h1>
                 <p class="hero-subtitle">Así aprendemos jugando cada día.</p>
             </div>
         </div>
         <div class="hero-media">
             {% if portada.imagen_hero %}
-                <img src="{{ portada.imagen_hero.url }}" alt="Actividades diarias">
+                <img src="{{ portada.imagen_hero.url }}" alt="Actividades">
             {% else %}
                 <div class="hero-media-placeholder" aria-hidden="true">
                     <span>🖼️</span>
@@ -35,6 +35,7 @@
         <div class="day-list">
             {% for dia in semana.dias %}
             <article class="day-card">
+                <span class="card-date">{{ dia.fecha|date:"d/m/Y" }}</span>
                 <h3>{{ dia.nombre }}</h3>
                 <div class="rich-text">{{ dia.descripcion|safe }}</div>
                 {% if dia.imagen %}<img src="{{ dia.imagen.url }}" alt="{{ dia.nombre }}" loading="lazy" decoding="async">{% endif %}
