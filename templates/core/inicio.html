@@ -6,7 +6,10 @@
     <div class="container hero-inner">
         <div class="hero-text">
             <div class="hero-text-panel">
-                <h1>{{ inicio.titulo_hero }}</h1>
+                <div class="hero-heading">
+                    {% if config_sitio.logo %}<img src="{{ config_sitio.logo.url }}" alt="" class="hero-logo">{% endif %}
+                    <h1>{{ inicio.titulo_hero }}</h1>
+                </div>
                 {% if inicio.subtitulo_hero %}<p class="hero-subtitle">{{ inicio.subtitulo_hero }}</p>{% endif %}
                 <div class="hero-actions">
                     <a href="{% url 'actividades:actividades' %}" class="btn">Ver actividades</a>
@@ -151,4 +154,22 @@
     </div>
 </section>
 {% endif %}
+
+<section class="container section">
+    <div class="section-card">
+        <div class="section-heading">
+            <h2><span aria-hidden="true">📍</span> Encuéntranos</h2>
+        </div>
+        {% if config_sitio.direccion %}<p class="map-address">{{ config_sitio.direccion }}</p>{% endif %}
+        <div class="map-embed">
+            <iframe
+                src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                title="Ubicación de {{ config_sitio.nombre_jardin }} en Google Maps"></iframe>
+        </div>
+        <a class="btn btn-outline map-link" href="https://maps.google.com/maps?vet=10CAAQoqAOahcKEwjw8u7ny7mWAxUAAAAAHQAAAAAQCQ..i&sca_esv=74ed7c7b1c9c0609&pvq=Cg0vZy8xMWM2MDNiOHAzIhcKEW1pIHBlcXVlw7FvIG11bmRvEAIYAw&lqi=ChdtaSBwZXF1ZcOxbyBtdW5kbyB2acOxYUijxdSBmKuAgAhaMRAAEAEQAhgAGAEYAhgDIhdtaSBwZXF1ZcOxbyBtdW5kbyB2acOxYSoICAIQABABEAKSAQlwcmVzY2hvb2yaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTkdhbVpZUTBKQkVBRfoBBQiJAhAb&fvr=1&cs=1&um=1&ie=UTF-8&fb=1&gl=cl&sa=X&ftid=0x9689de9b823eb339:0x9a476e6e414a2b3a" target="_blank" rel="noopener">Ver en Google Maps →</a>
+    </div>
+</section>
 {% endblock %}

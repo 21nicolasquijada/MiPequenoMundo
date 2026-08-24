@@ -15,4 +15,4 @@ class EventoCalendarioAdmin(admin.ModelAdmin):
     list_filter = ['publicado']
     date_hierarchy = 'fecha_inicio'
     ordering = ['fecha_inicio']
-    fields = ['titulo', 'fecha_inicio', 'fecha_fin', 'descripcion', 'imagen', 'publicado']
+    fields = ['titulo', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'descripcion', 'imagen', 'publicado']

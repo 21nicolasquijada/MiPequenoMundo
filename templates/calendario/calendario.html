@@ -32,13 +32,20 @@
         <div class="day-list">
             {% for evento in mes.eventos %}
             <article class="day-card">
-                <span class="card-date">
-                    {% if evento.fecha_fin and evento.fecha_fin != evento.fecha_inicio %}
-                        {{ evento.fecha_inicio|date:"d" }} al {{ evento.fecha_fin|date:"d \d\e F" }}
-                    {% else %}
-                        {{ evento.fecha_inicio|date:"d \d\e F" }}
+                <div class="day-card-header">
+                    <span class="card-date">
+                        {% if evento.fecha_fin and evento.fecha_fin != evento.fecha_inicio %}
+                            {{ evento.fecha_inicio|date:"d" }} al {{ evento.fecha_fin|date:"d \d\e F"|capfirst }}
+                        {% else %}
+                            {{ evento.fecha_inicio|date:"l d \d\e F"|capfirst }}
+                        {% endif %}
+                    </span>
+                    {% if evento.hora_inicio %}
+                    <span class="time-badge">
+                        🕒 {{ evento.hora_inicio|time:"H:i" }}{% if evento.hora_fin %} – {{ evento.hora_fin|time:"H:i" }}{% endif %}
+                    </span>
                     {% endif %}
-                </span>
+                </div>
                 <h3>{{ evento.titulo }}</h3>
                 {% if evento.descripcion %}<div class="rich-text">{{ evento.descripcion|safe }}</div>{% endif %}
                 {% if evento.imagen %}<img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">{% endif %}

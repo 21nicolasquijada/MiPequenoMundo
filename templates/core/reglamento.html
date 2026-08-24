@@ -8,11 +8,7 @@
         <div class="hero-text">
             <div class="hero-text-panel">
                 <h1>📋 Reglamento interno</h1>
-                {% if reglamento.archivo_pdf %}
-                    <div class="hero-actions">
-                        <a class="btn" href="{{ reglamento.archivo_pdf.url }}" target="_blank" rel="noopener">Descargar en PDF</a>
-                    </div>
-                {% endif %}
+                <p class="hero-subtitle">Las normas y compromisos que guían la convivencia diaria en {{ config_sitio.nombre_jardin }}, para familias, niños y niñas.</p>
             </div>
         </div>
         <div class="hero-media">
@@ -30,6 +26,11 @@
 
 <section class="container section">
     <div class="content-card rich-text">
+        {% if reglamento.archivo_pdf %}
+        <div class="content-actions">
+            <a class="btn" href="{{ reglamento.archivo_pdf.url }}" target="_blank" rel="noopener">📄 Descargar en PDF</a>
+        </div>
+        {% endif %}
         {{ reglamento.contenido|safe }}
     </div>
 </section>

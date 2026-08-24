@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ config_sitio.nombre_jardin }}{% endblock %}</title>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/favicon-192x192.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,21 +27,6 @@
         <img src="{% static 'img/mascota-estrella.svg' %}" class="mascot mascot-estrella-2" alt="">
     </div>
 
-    {% if config_sitio.telefono or config_sitio.email or config_sitio.facebook_url or config_sitio.instagram_url %}
-    <div class="topbar">
-        <div class="container topbar-inner">
-            <div class="topbar-contact">
-                {% if config_sitio.telefono %}<a href="tel:{{ config_sitio.telefono }}">📞 {{ config_sitio.telefono }}</a>{% endif %}
-                {% if config_sitio.email %}<a href="mailto:{{ config_sitio.email }}">✉️ {{ config_sitio.email }}</a>{% endif %}
-            </div>
-            <div class="topbar-social">
-                {% if config_sitio.facebook_url %}<a href="{{ config_sitio.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
-                {% if config_sitio.instagram_url %}<a href="{{ config_sitio.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
     <header class="site-header">
         <div class="container header-inner">
             <a href="{% url 'core:inicio' %}" class="brand">
@@ -51,7 +41,6 @@
                 <span></span><span></span><span></span>
             </button>
             <nav class="site-nav" id="siteNav">
-                <a href="{% url 'core:inicio' %}">Inicio</a>
                 <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
                 <a href="{% url 'actividades:actividades' %}">Actividades</a>
@@ -110,6 +99,13 @@
                 {% if config_sitio.facebook_url %}<a href="{{ config_sitio.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
                 {% if config_sitio.instagram_url %}<a href="{{ config_sitio.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
                 {% if config_sitio.whatsapp_url %}<a href="{{ config_sitio.whatsapp_url }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+            </div>
+            <div class="footer-map">
+                <iframe
+                    src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Ubicación de {{ config_sitio.nombre_jardin }} en Google Maps"></iframe>
             </div>
         </div>
         <p class="footer-copy">&copy; {% now "Y" %} {{ config_sitio.nombre_jardin }}</p>
