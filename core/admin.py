@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Configuracion, PaginaInicio, PaginaSobreNosotros, Reglamento
+from django.utils.html import format_html
+from .models import Configuracion, Documento, PaginaInicio, PaginaSobreNosotros, Reglamento
 
 
 class SingletonAdmin(admin.ModelAdmin):
@@ -30,6 +31,19 @@ class PaginaInicioAdmin(SingletonAdmin):
 @admin.register(Reglamento)
 class ReglamentoAdmin(SingletonAdmin):
     readonly_fields = ['actualizado']
+
+
+@admin.register(Documento)
+class DocumentoAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descarga', 'orden', 'subido_el']
+    list_editable = ['orden']
+    ordering = ['orden', '-subido_el']
+
+    def descarga(self, obj):
+        if obj.archivo:
+            return format_html('<a href="{}" target="_blank" rel="noopener">Ver PDF</a>', obj.archivo.url)
+        return '—'
+    descarga.short_description = 'Archivo'
 
 
 @admin.register(PaginaSobreNosotros)

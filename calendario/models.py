@@ -2,9 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from core.models import SingletonModel
+from core.utils import OptimizedImagesModel
 
 
-class PaginaCalendario(SingletonModel):
+class PaginaCalendario(OptimizedImagesModel, SingletonModel):
     imagen_hero = models.ImageField(upload_to='calendario/', blank=True, null=True)
 
     class Meta:
@@ -15,7 +16,7 @@ class PaginaCalendario(SingletonModel):
         return 'Portada de la página de calendario'
 
 
-class EventoCalendario(models.Model):
+class EventoCalendario(OptimizedImagesModel):
     titulo = models.CharField(max_length=150)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField(

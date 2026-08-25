@@ -4,9 +4,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from core.models import SingletonModel
+from core.utils import OptimizedImagesModel
 
 
-class PaginaActividades(SingletonModel):
+class PaginaActividades(OptimizedImagesModel, SingletonModel):
     imagen_hero = models.ImageField(upload_to='actividades/', blank=True, null=True)
 
     class Meta:
@@ -17,7 +18,7 @@ class PaginaActividades(SingletonModel):
         return 'Portada de la página de actividades'
 
 
-class SemanaActividades(models.Model):
+class SemanaActividades(OptimizedImagesModel):
     fecha_inicio = models.DateField(
         unique=True,
         help_text='Selecciona el día lunes de la semana que corresponde.',

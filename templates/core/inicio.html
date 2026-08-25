@@ -98,6 +98,19 @@
 </section>
 {% endif %}
 
+{% if config_sitio.blog_url %}
+<section class="container section">
+    <div class="section-card blog-card">
+        <span class="blog-card-icon" aria-hidden="true">📝</span>
+        <div class="blog-card-body">
+            <h2>Visita nuestro blog</h2>
+            <p>Más historias, novedades y momentos de {{ config_sitio.nombre_jardin }} en nuestro blog.</p>
+        </div>
+        <a href="{{ config_sitio.blog_url }}" target="_blank" rel="noopener" class="btn">Ir al blog</a>
+    </div>
+</section>
+{% endif %}
+
 {% if dias_recientes %}
 <section class="container section">
     <div class="section-heading">
@@ -128,6 +141,13 @@
     <div class="preview-row">
         {% for foto in fotos_destacadas %}
         <div class="gallery-thumb">
+            {% if foto.video_url %}
+            <a href="{{ foto.video_url }}" target="_blank" rel="noopener" class="gallery-item-btn gallery-item-video"
+               aria-label="Ver video{% if foto.titulo %} {{ foto.titulo }}{% endif %} en YouTube">
+                <img src="{{ foto.miniatura_url }}" alt="{{ foto.titulo }}" loading="lazy" decoding="async">
+                <span class="gallery-play-icon" aria-hidden="true"><span>▶</span></span>
+            </a>
+            {% else %}
             <button type="button" class="gallery-item-btn" data-lightbox-trigger
                     data-img="{{ foto.imagen.url }}"
                     data-titulo="{{ foto.titulo|default:'' }}"
@@ -135,6 +155,7 @@
                     aria-label="Ver foto{% if foto.titulo %} {{ foto.titulo }}{% endif %} en grande">
                 <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}" loading="lazy" decoding="async">
             </button>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -149,7 +170,7 @@
         {% if config_sitio.direccion %}<p class="map-address">{{ config_sitio.direccion }}</p>{% endif %}
         <div class="map-embed">
             <iframe
-                src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&output=embed"
+                src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&t=k&output=embed"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 allowfullscreen

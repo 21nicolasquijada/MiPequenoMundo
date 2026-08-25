@@ -41,11 +41,11 @@
                 <span></span><span></span><span></span>
             </button>
             <nav class="site-nav" id="siteNav">
-                <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
+                <a href="{% url 'core:sobre_nosotros' %}">Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
                 <a href="{% url 'actividades:actividades' %}">Actividades</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
-                <a href="{% url 'core:reglamento' %}">Reglamento</a>
+                <a href="{% url 'core:documentos' %}">Documentos</a>
                 {% if config_sitio.whatsapp_url %}
                 <a href="{{ config_sitio.whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-sm nav-cta">Contáctanos</a>
                 {% elif config_sitio.telefono %}
@@ -71,7 +71,7 @@
                 {% elif config_sitio.telefono %}
                     <a href="tel:{{ config_sitio.telefono }}" class="btn">Llámanos</a>
                 {% endif %}
-                <a href="{% url 'core:reglamento' %}" class="btn btn-outline">Ver reglamento</a>
+                <a href="{% url 'core:documentos' %}" class="btn btn-outline">Ver documentos</a>
             </div>
         </div>
     </section>
@@ -84,11 +84,12 @@
             </div>
             <div class="footer-links">
                 <a href="{% url 'core:inicio' %}">Inicio</a>
-                <a href="{% url 'core:sobre_nosotros' %}">Sobre Nosotros</a>
+                <a href="{% url 'core:sobre_nosotros' %}">Nosotros</a>
                 <a href="{% url 'galeria:galeria' %}">Galería</a>
                 <a href="{% url 'actividades:actividades' %}">Actividades</a>
                 <a href="{% url 'calendario:calendario' %}">Calendario</a>
-                <a href="{% url 'core:reglamento' %}">Reglamento</a>
+                <a href="{% url 'core:documentos' %}">Documentos</a>
+                {% if config_sitio.blog_url %}<a href="{{ config_sitio.blog_url }}" target="_blank" rel="noopener">Blog</a>{% endif %}
             </div>
             <div class="footer-contacto">
                 {% if config_sitio.direccion %}<p>{{ config_sitio.direccion }}</p>{% endif %}
@@ -102,7 +103,7 @@
             </div>
             <div class="footer-map">
                 <iframe
-                    src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&output=embed"
+                    src="https://www.google.com/maps?q=Mi+Peque%C3%B1o+Mundo+Jard%C3%ADn+Infantil,+Vi%C3%B1a+del+Mar&t=k&output=embed"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                     title="Ubicación de {{ config_sitio.nombre_jardin }} en Google Maps"></iframe>

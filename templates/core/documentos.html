@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Documentos · {{ config_sitio.nombre_jardin }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <div class="hero-text-panel">
+                <h1>📄 Documentos</h1>
+                <p class="hero-subtitle">Reglamento interno y documentos oficiales de {{ config_sitio.nombre_jardin }}, disponibles para descargar.</p>
+            </div>
+        </div>
+        <div class="hero-media">
+            {% if reglamento.imagen_hero %}
+                <img src="{{ reglamento.imagen_hero.url }}" alt="Documentos">
+            {% else %}
+                <div class="hero-media-placeholder" aria-hidden="true">
+                    <span>🖼️</span>
+                    <span class="placeholder-label">Imagen próximamente</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% if reglamento.contenido %}
+<section class="container section">
+    <div class="content-card rich-text">{{ reglamento.contenido|safe }}</div>
+</section>
+{% endif %}
+
+<section class="container section">
+    {% if documentos %}
+    <div class="documentos-grid">
+        {% for documento in documentos %}
+        <article class="documento-card">
+            <span class="documento-icon" aria-hidden="true">📄</span>
+            <div class="documento-body">
+                <h3>{{ documento.titulo }}</h3>
+                {% if documento.descripcion %}<p>{{ documento.descripcion }}</p>{% endif %}
+                <a class="btn btn-sm" href="{{ documento.archivo.url }}" target="_blank" rel="noopener">Descargar PDF</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">Todavía no hay documentos publicados.</p>
+    {% endif %}
+</section>
+{% endblock %}

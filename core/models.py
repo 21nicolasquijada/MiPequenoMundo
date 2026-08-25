@@ -1,7 +1,9 @@
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from .utils import OptimizedImagesModel
 
 
 class SingletonModel(models.Model):
@@ -27,7 +29,7 @@ class SingletonModel(models.Model):
         return obj
 
 
-class Configuracion(SingletonModel):
+class Configuracion(OptimizedImagesModel, SingletonModel):
     nombre_jardin = models.CharField(max_length=150, default='Jardín Infantil Mi Pequeño Mundo')
     lema = models.CharField(max_length=200, blank=True, help_text='Ej: Convivir en armonía, aprender con alegría')
     direccion = models.CharField(max_length=250, blank=True)
@@ -36,6 +38,10 @@ class Configuracion(SingletonModel):
     facebook_url = models.URLField(blank=True)
     instagram_url = models.URLField(blank=True)
     whatsapp_url = models.URLField(blank=True)
+    blog_url = models.URLField(
+        'Enlace del blog', blank=True, default='https://mipequenomundo2011.blogspot.com/',
+        help_text='Se muestra como sección y enlace en el sitio. Déjalo vacío para ocultarlo.',
+    )
     logo = models.ImageField(upload_to='sitio/', blank=True, null=True)
 
     class Meta:
@@ -46,7 +52,7 @@ class Configuracion(SingletonModel):
         return self.nombre_jardin
 
 
-class PaginaInicio(SingletonModel):
+class PaginaInicio(OptimizedImagesModel, SingletonModel):
     titulo_hero = models.CharField(max_length=200, default='Bienvenidos a Mi Pequeño Mundo')
     subtitulo_hero = models.CharField(max_length=250, blank=True)
     imagen_hero = models.ImageField(upload_to='inicio/', blank=True, null=True)
@@ -120,7 +126,7 @@ DEFAULT_LISTA_VALORES = (
 )
 
 
-class PaginaSobreNosotros(SingletonModel):
+class PaginaSobreNosotros(OptimizedImagesModel, SingletonModel):
     imagen_hero = models.ImageField(upload_to='sobre-nosotros/', blank=True, null=True)
     bienvenida = RichTextUploadingField('Mensaje de bienvenida', blank=True, default=DEFAULT_BIENVENIDA)
     mision = RichTextUploadingField('Misión', blank=True, default=DEFAULT_MISION)
@@ -145,16 +151,37 @@ class PaginaSobreNosotros(SingletonModel):
         return [valor.strip() for valor in self.lista_valores.split(',') if valor.strip()]
 
 
-class Reglamento(SingletonModel):
+class Reglamento(OptimizedImagesModel, SingletonModel):
     imagen_hero = models.ImageField(upload_to='reglamento/', blank=True, null=True)
-    contenido = RichTextUploadingField(blank=True)
-    archivo_pdf = models.FileField(upload_to='reglamento/', blank=True, null=True,
-                                    help_text='Opcional: versión descargable en PDF')
+    contenido = RichTextUploadingField(
+        'Texto introductorio', blank=True,
+        help_text='Texto opcional que se muestra sobre la lista de documentos.',
+    )
     actualizado = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Reglamento interno'
-        verbose_name_plural = 'Reglamento interno'
+        verbose_name = 'Página de Documentos'
+        verbose_name_plural = 'Página de Documentos'
 
     def __str__(self):
-        return 'Reglamento interno'
+        return 'Página de Documentos'
+
+
+class Documento(models.Model):
+    titulo = models.CharField(max_length=150)
+    descripcion = models.CharField(max_length=250, blank=True)
+    archivo = models.FileField(
+        upload_to='documentos/',
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'])],
+        help_text='Solo se permiten archivos PDF.',
+    )
+    orden = models.PositiveIntegerField(default=0, help_text='Los documentos con número menor aparecen primero')
+    subido_el = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Documento'
+        verbose_name_plural = 'Documentos'
+        ordering = ['orden', '-subido_el']
+
+    def __str__(self):
+        return self.titulo
