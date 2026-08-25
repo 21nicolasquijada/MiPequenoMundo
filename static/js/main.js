@@ -10,6 +10,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Header flotante: mide su alto real (para que el resto de la página no
+    // quede tapada) y alterna a sólido apenas se hace scroll.
+    var header = document.querySelector('.site-header');
+    if (header) {
+        var syncHeaderHeight = function () {
+            document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+        };
+        syncHeaderHeight();
+        window.addEventListener('resize', syncHeaderHeight);
+
+        var syncHeaderScrolled = function () {
+            header.classList.toggle('is-scrolled', window.scrollY > 10);
+        };
+        syncHeaderScrolled();
+        window.addEventListener('scroll', syncHeaderScrolled, { passive: true });
+    }
+
     if (typeof gsap === 'undefined') return;
 
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

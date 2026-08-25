@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section class="hero">
+<section class="hero hero-inicio">
     <div class="container hero-inner">
         <div class="hero-text">
             <div class="hero-text-panel">
@@ -15,20 +15,6 @@
                     <a href="{% url 'actividades:actividades' %}" class="btn">Ver actividades</a>
                     <a href="{% url 'galeria:galeria' %}" class="btn btn-outline">Ver galería</a>
                 </div>
-            </div>
-        </div>
-        <div class="hero-media">
-            {% if inicio.imagen_hero %}
-                <img src="{{ inicio.imagen_hero.url }}" alt="{{ inicio.titulo_hero }}">
-            {% else %}
-                <div class="hero-media-placeholder" aria-hidden="true">
-                    <span>🧸</span>
-                    <span class="placeholder-label">Imagen próximamente</span>
-                </div>
-            {% endif %}
-            <div class="hero-badge">
-                <span class="hero-badge-icon" aria-hidden="true">🎨</span>
-                <span>Aprender jugando</span>
             </div>
         </div>
     </div>

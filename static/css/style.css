@@ -16,19 +16,19 @@
     --color-cream: #faf8f5;       /* 60% dominante: fondos y espacio negativo */
     --color-mint: #8fa89b;        /* 30% secundario */
     --color-sky: #92b4a7;         /* 30% secundario */
-    --color-mustard: #e5a93c;     /* 10% acento: CTA principal e íconos clave */
-    --color-terracotta: #e28a74;  /* acento secundario: botones secundarios y hover */
+    --color-leaf: #6fb076;        /* 10% acento: títulos, links y CTA principal */
+    --color-forest: #3e7c4f;      /* acento secundario: hover y botones secundarios */
     --color-charcoal: #2b2d2f;    /* texto: gris carbón cálido */
 
     /* Alias que usan los componentes del sitio */
-    --color-amber: var(--color-mustard);
-    --color-tiger: var(--color-mustard);
-    --color-punch: var(--color-terracotta);
+    --color-amber: var(--color-leaf);
+    --color-tiger: var(--color-leaf);
+    --color-punch: var(--color-forest);
     --color-purple: var(--color-sky);
     --color-blue: var(--color-mint);
 
-    --color-primary: var(--color-mustard);
-    --color-primary-dark: var(--color-terracotta);
+    --color-primary: var(--color-leaf);
+    --color-primary-dark: var(--color-forest);
 
     --color-bg: var(--color-cream);
     --color-bg-alt: #f2eee7;
@@ -112,14 +112,37 @@ img { max-width: 100%; display: block; }
     padding: 0 1.25rem;
 }
 
-/* Header */
+/* Header: transparente sobre el hero, sólido al hacer scroll (ver static/js/main.js) */
 .site-header {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0));
+    box-shadow: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header.is-scrolled {
     background: var(--color-white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 20;
 }
+
+/* Texto claro mientras el header flota transparente sobre la foto */
+.site-header:not(.is-scrolled) .brand,
+.site-header:not(.is-scrolled) .site-nav a:not(.nav-cta) {
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.site-header:not(.is-scrolled) .nav-toggle span { background: #fff; }
+
+/* El menú móvil desplegado siempre tiene fondo blanco sólido: su texto debe seguir oscuro */
+.site-header .site-nav.open a:not(.nav-cta) { color: var(--color-text); text-shadow: none; }
+
+/* Deja espacio para el header fijo; el hero de Inicio lo cancela para llegar hasta arriba */
+main { padding-top: var(--header-h, 92px); }
 
 .header-inner {
     display: flex;
@@ -142,6 +165,7 @@ img { max-width: 100%; display: block; }
 .brand-logo { height: 48px; width: auto; }
 
 .brand-mark {
+    box-shadow: var(--shadow);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -188,29 +212,29 @@ img { max-width: 100%; display: block; }
     align-items: center;
     justify-content: center;
     padding: 0.75rem 1.75rem;
-    background: var(--color-mustard);
+    background: var(--color-leaf);
     color: var(--color-charcoal);
     text-decoration: none;
     border-radius: var(--radius-btn);
     font-weight: 700;
     font-family: var(--font-heading);
-    border: 2px solid var(--color-mustard);
+    border: 2px solid var(--color-leaf);
     box-shadow: var(--shadow);
     transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.btn:hover { background: var(--color-terracotta); border-color: var(--color-terracotta); transform: translateY(-2px); }
+.btn:hover { background: var(--color-forest); border-color: var(--color-forest); color: #fff; transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
 .btn-outline {
     background: transparent;
     color: var(--color-primary-dark);
-    border-color: var(--color-terracotta);
+    border-color: var(--color-forest);
     box-shadow: none;
 }
 
-.btn-outline:hover { background: var(--color-terracotta); color: var(--color-charcoal); }
-.btn-outline:active { background: var(--color-terracotta); opacity: 0.9; }
+.btn-outline:hover { background: var(--color-forest); color: #fff; }
+.btn-outline:active { background: var(--color-forest); color: #fff; opacity: 0.9; }
 
 .btn-sm { padding: 0.45rem 1.1rem; font-size: 0.9rem; }
 
@@ -247,6 +271,22 @@ img { max-width: 100%; display: block; }
     pointer-events: none;
     z-index: 1;
 }
+
+/* Hero de Inicio: foto de fondo propia a todo el alto del viewport, bajo el header fijo */
+.hero-inicio {
+    background-image: url('../img/hero-inicio-bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    margin-top: calc(-1 * var(--header-h, 92px));
+    padding-top: calc(3.5rem + var(--header-h, 92px));
+    display: grid;
+    align-items: center;
+}
+
+.hero-inicio .hero-inner { grid-template-columns: 1fr; }
+
+.hero-inicio .hero-text-panel { max-width: none; }
 
 .hero-text-panel {
     background: rgba(250, 248, 245, 0.88);
@@ -333,7 +373,7 @@ img { max-width: 100%; display: block; }
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--color-mustard);
+    background: var(--color-leaf);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -456,8 +496,8 @@ img { max-width: 100%; display: block; }
 }
 
 .callout-warning {
-    background: #fbeae5;
-    border: 1px solid var(--color-terracotta);
+    background: #e9f4ec;
+    border: 1px solid var(--color-forest);
 }
 
 .callout-icon { font-size: 1.4rem; flex-shrink: 0; }
@@ -641,6 +681,7 @@ img { max-width: 100%; display: block; }
 .map-embed {
     position: relative;
     width: 100%;
+    max-width: 520px;
     aspect-ratio: 16 / 9;
     border-radius: var(--radius);
     overflow: hidden;
@@ -682,7 +723,7 @@ img { max-width: 100%; display: block; }
     cursor: pointer;
 }
 
-.gallery-item-btn:focus-visible img { outline: 3px solid var(--color-mustard); outline-offset: 3px; }
+.gallery-item-btn:focus-visible img { outline: 3px solid var(--color-leaf); outline-offset: 3px; }
 
 /* Lightbox de galería */
 .lightbox {
@@ -745,7 +786,7 @@ img { max-width: 100%; display: block; }
     justify-content: center;
 }
 
-.lightbox-close:hover { background: var(--color-terracotta); color: #fff; }
+.lightbox-close:hover { background: var(--color-forest); color: #fff; }
 
 .content-card {
     background: rgba(255, 255, 255, 0.92);
@@ -805,7 +846,7 @@ img { max-width: 100%; display: block; }
 
 /* CTA band */
 .cta-band {
-    background: linear-gradient(120deg, var(--color-mustard), var(--color-terracotta));
+    background: linear-gradient(120deg, var(--color-leaf), var(--color-forest));
     color: #fff;
     margin-top: 2rem;
 }
